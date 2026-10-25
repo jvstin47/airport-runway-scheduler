@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Airport Runway Scheduling System - Viva Voce Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1e293b;
+    background: #ffffff;
+    line-height: 1.4;
+    font-size: 11.5px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .header {
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .header h1 {
+    font-size: 18px;
+    color: #0f172a;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .header .subtitle {
+    font-size: 11.5px;
+    color: #475569;
+    font-weight: 500;
+    margin-top: 1px;
+  }
+  .badge {
+    background: #eff6ff;
+    color: #1d4ed8;
+    padding: 3px 8px;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid #bfdbfe;
+  }
+
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 8px;
+    margin-bottom: 6px;
+    border-left: 3px solid #2563eb;
+    padding-left: 6px;
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .summary-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 6px 8px;
+  }
+  .summary-box h3 {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 2px;
+    font-weight: 700;
+  }
+  .summary-box p {
+    font-size: 11px;
+    color: #1e293b;
+    line-height: 1.35;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6px 0 8px 0;
+    font-size: 11px;
+  }
+  th, td {
+    padding: 4px 8px;
+    text-align: left;
+    border: 1px solid #e2e8f0;
+  }
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 700;
+  }
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .member-card {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 7px 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  }
+  .member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 4px;
+    margin-bottom: 5px;
+  }
+  .member-name {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .member-role {
+    font-size: 11px;
+    color: #2563eb;
+    font-weight: 600;
+  }
+  .file-tag {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 10px;
+    font-weight: 600;
+    border: 1px solid #cbd5e1;
+  }
+
+  .code-overview {
+    font-size: 11px;
+    color: #334155;
+    margin-bottom: 5px;
+    background: #f8fafc;
+    padding: 4px 8px;
+    border-radius: 4px;
+    border-left: 3px solid #64748b;
+  }
+
+  .qa-block {
+    margin-top: 4px;
+  }
+  .qa-item {
+    margin-bottom: 4px;
+  }
+  .q {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 11px;
+  }
+  .a {
+    color: #334155;
+    font-size: 11px;
+    margin-left: 10px;
+    position: relative;
+  }
+  .a::before {
+    content: "•";
+    position: absolute;
+    left: -8px;
+    color: #2563eb;
+  }
+
+  .speech-box {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-top: 5px;
+    font-size: 10.5px;
+    color: #065f46;
+  }
+  .speech-box strong {
+    color: #047857;
+  }
+
+  .script-step {
+    display: flex;
+    margin-bottom: 6px;
+    font-size: 11px;
+  }
+  .step-num {
+    background: #2563eb;
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 10px;
+    margin-right: 8px;
+    flex-shrink: 0;
+  }
+  .step-text strong {
+    color: #0f172a;
+  }
+
+  .page-break {
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .footer-note {
+    font-size: 10px;
+    color: #64748b;
+    text-align: center;
+    margin-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="header">
+    <div>
+      <h1>Airport Runway Scheduling System</h1>
+      <div class="subtitle">Data Structures & Java Project — Comprehensive Viva Voce Defense Guide</div>
+    </div>
+    <div class="badge">Page 1 of 2</div>
+  </div>
+
+  <h2>1. Project Core Concepts (Elevator Pitch)</h2>
+  <div class="summary-grid">
+    <div class="summary-box">
+      <h3>System Purpose</h3>
+      <p>Automates a single-runway airport traffic controller where arriving and departing aircraft share a unified queue. Emergency flights instantly preempt routine traffic.</p>
+    </div>
+    <div class="summary-box">
+      <h3>Data Structure Choice</h3>
+      <p>Custom <strong>Singly Linked List Priority Queue</strong> implemented from scratch without <code>java.util</code>. Enqueue and Dequeue operate in constant <strong>O(1)</strong> time.</p>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Operation</th>
+        <th>Queue Action</th>
+        <th>Time Complexity</th>
+        <th>Aviation Rule</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Routine Flight</strong></td>
+        <td>Inserted at Tail (<code>rear</code>)</td>
+        <td><strong>O(1)</strong></td>
+        <td>Standard FIFO (First-In, First-Out) order</td>
+      </tr>
+      <tr>
+        <td><strong>Emergency Flight</strong></td>
+        <td>Inserted at Head (<code>front</code>)</td>
+        <td><strong>O(1)</strong></td>
+        <td>Safety Priority (Bypasses routine line)</td>
+      </tr>
+      <tr>
+        <td><strong>Runway Dispatch</strong></td>
+        <td>Removed from Head (<code>front</code>)</td>
+        <td><strong>O(1)</strong></td>
+        <td>Clears highest-priority waiting flight</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>2. Individual Member Modules (Part 1)</h2>
+
+  <!-- Member 1: Justin -->
+  <div class="member-card">
+    <div class="member-header">
+      <div>
+        <span class="member-name">👤 Justin Joe Mathew</span>
+        <span class="file-tag">Aircraft.java</span>
+      </div>
+      <span class="member-role">Aircraft Management & Java OOP</span>
+    </div>
+    <div class="code-overview">
+      <strong>Core Responsibility:</strong> Encapsulates flight attributes (<code>flightNo</code>, <code>airline</code>, <code>type</code>, <code>isEmergency</code>), constructor initialization, and formatted text output via <code>toString()</code>.
+    </div>
+    <div class="qa-block">
+      <div class="qa-item">
+        <div class="q">Q1: Which Object-Oriented Programming (OOP) concepts are demonstrated in Aircraft.java?</div>
+        <div class="a"><strong>Encapsulation</strong> (packaging related flight attributes into a single cohesive class) and <strong>Polymorphism</strong> (overriding the <code>toString()</code> method from the parent <code>Object</code> class).</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q2: Why did you override toString()?</div>
+        <div class="a">It cleanly formats the flight as <code>[EMERGENCY] AI-101 (Air India)</code> or <code>AI-101 (Air India)</code> so the UI and logs can render flight objects directly without manual string concatenation.</div>
+      </div>
+    </div>
+    <div class="speech-box">
+      <strong>30-Second Viva Speech:</strong> "I developed the Aircraft class using OOP encapsulation to store flight details and overridden toString() to provide clean, formatted representations across our Swing GUI and persistence logs."
+    </div>
+  </div>
+
+  <!-- Member 2: Elna -->
+  <div class="member-card">
+    <div class="member-header">
+      <div>
+        <span class="member-name">👤 Elna Elizabeth Abraham</span>
+        <span class="file-tag">Node.java</span> &nbsp; <span class="file-tag">FlightQueue.java</span>
+      </div>
+      <span class="member-role">Data Structures & Core Algorithms</span>
+    </div>
+    <div class="code-overview">
+      <strong>Core Responsibility:</strong> Built a custom Singly Linked-List Priority Queue with <code>front</code> and <code>rear</code> pointers from scratch. Zero reliance on <code>java.util</code> collections.
+    </div>
+    <div class="qa-block">
+      <div class="qa-item">
+        <div class="q">Q1: Why did you implement a Linked List instead of an Array for the Queue?</div>
+        <div class="a">Dynamic memory allocation (no static size boundary) and <strong>O(1)</strong> insertion/deletion without needing to shift elements like an array.</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q2: How does your Priority Queue logic work without loops?</div>
+        <div class="a">If an incoming flight is routine, <code>rear.next = newNode; rear = newNode;</code> (tail insertion). If it's an emergency, <code>newNode.next = front; front = newNode;</code> (head insertion). Both execute in <strong>O(1)</strong> time.</div>
+      </div>
+    </div>
+    <div class="speech-box">
+      <strong>30-Second Viva Speech:</strong> "I engineered our custom Priority Queue using a Singly Linked List with front and rear pointers. Routine flights join at the tail in FIFO order, while emergency flights jump directly to the head. All queue operations execute in O(1) time."
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="header">
+    <div>
+      <h1>Airport Runway Scheduling System</h1>
+      <div class="subtitle">Individual Modules & Team Presentation Script</div>
+    </div>
+    <div class="badge">Page 2 of 2</div>
+  </div>
+
+  <h2>2. Individual Member Modules (Part 2)</h2>
+
+  <!-- Member 3: Sruthika -->
+  <div class="member-card">
+    <div class="member-header">
+      <div>
+        <span class="member-name">👤 K Sruthika</span>
+        <span class="file-tag">RunwayUI.java</span>
+      </div>
+      <span class="member-role">UI & System Integration</span>
+    </div>
+    <div class="code-overview">
+      <strong>Core Responsibility:</strong> Designed the classic Swing GUI with <code>JFrame</code>, <code>setBounds</code> (null layout), and <code>implements ActionListener</code> to connect the visual interface to the underlying data structure.
+    </div>
+    <div class="qa-block">
+      <div class="qa-item">
+        <div class="q">Q1: How does the UI connect with the Queue data structure?</div>
+        <div class="a">When the user clicks 'Add Flight', it triggers <code>runwayQueue.enqueue(flight)</code>. When 'Clear Runway' is clicked, it calls <code>runwayQueue.dequeue()</code> and refreshes the display text areas.</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q2: Why use a single unified queue on the interface?</div>
+        <div class="a">Because in a single-runway airport, all arriving and departing aircraft compete for the same physical runway. Having one list makes priority preemption immediately visible to air traffic controllers.</div>
+      </div>
+    </div>
+    <div class="speech-box">
+      <strong>30-Second Viva Speech:</strong> "I built the graphical interface using pure Java Swing with null layout and setBounds, matching our lab coursework. My module captures user input, updates the queue visually, and dispatches flights via button events."
+    </div>
+  </div>
+
+  <!-- Member 4: Devika -->
+  <div class="member-card">
+    <div class="member-header">
+      <div>
+        <span class="member-name">👤 Devika Suresh</span>
+        <span class="file-tag">FileHandler.java</span> &nbsp; <span class="file-tag">TestRunway.java</span>
+      </div>
+      <span class="member-role">File Handling & Testing</span>
+    </div>
+    <div class="code-overview">
+      <strong>Core Responsibility:</strong> Manages persistent logging to <code>runway_log.txt</code> using <code>FileWriter</code> in append mode and created automated headless test verification scripts.
+    </div>
+    <div class="qa-block">
+      <div class="qa-item">
+        <div class="q">Q1: Why did you use append mode (new FileWriter(FILE_NAME, true))?</div>
+        <div class="a">Passing <code>true</code> prevents overwriting past flight history, ensuring an audit log of all runway clearances is permanently preserved on disk.</div>
+      </div>
+      <div class="qa-item">
+        <div class="q">Q2: What edge cases did you verify with TestRunway.java?</div>
+        <div class="a">1. Queue underflow (attempting to clear an empty runway shows an alert without crashing). 2. Verifying that emergency flights inserted after routine flights dequeue first.</div>
+      </div>
+    </div>
+    <div class="speech-box">
+      <strong>30-Second Viva Speech:</strong> "I implemented persistent audit logging using FileWriter in append mode and built TestRunway.java to programmatically verify our priority queue logic and underflow protection without needing the GUI."
+    </div>
+  </div>
+
+  <h2>3. Team Presentation Flow (How to Present to the Examiner)</h2>
+  
+  <div class="script-step">
+    <div class="step-num">1</div>
+    <div class="step-text">
+      <strong>Justin introduces the project:</strong> "Good morning sir/ma'am. We have developed an Airport Runway Scheduling System in Java modeling a priority-based single runway controller. I designed the flight OOP structure in <code>Aircraft.java</code>."
+    </div>
+  </div>
+
+  <div class="script-step">
+    <div class="step-num">2</div>
+    <div class="step-text">
+      <strong>Elna explains the Data Structure:</strong> "Instead of using Java's built-in collections, I implemented a Singly Linked-List Priority Queue from scratch. Emergency flights insert at Head (O(1)), normal flights insert at Tail (O(1)), and runway dispatch removes from Head (O(1))."
+    </div>
+  </div>
+
+  <div class="script-step">
+    <div class="step-num">3</div>
+    <div class="step-text">
+      <strong>Sruthika demonstrates the Live GUI:</strong> "I built our Swing GUI. (Run <code>./run.sh</code>). Watch as I add flight AI-101 (Landing), then 6E-202 (Takeoff), and now EM-999 with Emergency checked. Notice how EM-999 jumps directly to Position #1 in the queue!"
+    </div>
+  </div>
+
+  <div class="script-step">
+    <div class="step-num">4</div>
+    <div class="step-text">
+      <strong>Devika concludes with Persistence & Tests:</strong> "Clicking 'Clear Runway' clears EM-999 first. I built <code>FileHandler</code> which writes every event to <code>runway_log.txt</code>, and <code>TestRunway.java</code> which automated our verification."
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Airport Runway Scheduling System &bull; GitHub: <code>https://github.com/jvstin47/airport-runway-scheduler</code> &bull; Prepared for Lab Viva Voce
+  </div>
+
+</body>
+</html>
