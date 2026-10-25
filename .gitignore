@@ -1,0 +1,8 @@
+# Compiled Java class files
+*.class
+
+# macOS metadata
+.DS_Store
+
+# Temporary files
+*.tmp

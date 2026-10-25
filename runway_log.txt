@@ -1,0 +1,13 @@
+TEST RUN: Verification completed.
+[RUNWAY] TOOK OFF: 001 (023)
+--- SESSION LOG EXPORT ---
+[RUNWAY] TOOK OFF: 001 (023)
+TEST RUN: Verification completed.
+[RUNWAY] LANDED: 003 (etihad)
+[RUNWAY] TOOK OFF: 001 (Indigo)
+TEST RUN: Verified Single Queue priority.
+[RUNWAY] 101 (Indigo) completed LANDING
+[RUNWAY] 105 (Indigo) completed LANDING [EMERGENCY]
+[RUNWAY] 102 (air India) completed TAKEOFF
+[RUNWAY] 103 (Air india) completed TAKEOFF
+[RUNWAY] 104 (Indigo) completed TAKEOFF
